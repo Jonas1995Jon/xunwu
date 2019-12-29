@@ -16,9 +16,4 @@ public class XunWuApplication {
         SpringApplication.run(XunWuApplication.class, args);
     }
 
-    @GetMapping("/")
-    public String inti() {
-        return "hello";
-    }
-
 }

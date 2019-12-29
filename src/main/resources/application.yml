@@ -1,14 +1,32 @@
 spring:
   profiles:
     active: dev
+
+  # jpa config
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
-  security:
-    user:
-      name: root
-      password: 123456
+
+  # security config
+#  security:
+#    user:
+#      name: root
+#      password: 123456
+
+  # Thymeleaf config
+  thymeleaf:
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+
+# 不要springboot生成whitelabel页面
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+# log config
 logging:
   level:
     org:
