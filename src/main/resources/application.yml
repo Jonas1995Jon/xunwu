@@ -32,3 +32,11 @@ logging:
     org:
       hibernate:
         SQL: debug
+
+# qiniu
+qiniu:
+  AccessKey: wQKZ54zYCI0bVXfH9YajI8_EQGpvkRdtXcG_H7AB
+  SecretKey: qx52pYjI3vbYmZTxh-a1AQdswnc8Q8cZrThBZYkB
+  Bucket: jang1995
+  cdn:
+    prefix: http://q3f7ttmqr.bkt.clouddn.com

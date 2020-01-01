@@ -91,6 +91,7 @@ local.properties
 HELP.md
 !**/src/main/**
 !**/src/test/**
+/temp
 target/
 out/
 build/
