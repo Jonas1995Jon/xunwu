@@ -19,7 +19,6 @@ public class HomeController {
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("name", "Jang");
         return "index";
     }
 
@@ -38,7 +37,7 @@ public class HomeController {
         return "500";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logout/page")
     public String logoutPage() {
         return "logout";
     }

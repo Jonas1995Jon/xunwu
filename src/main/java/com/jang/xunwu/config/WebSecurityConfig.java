@@ -1,6 +1,10 @@
 package com.jang.xunwu.config;
 
+import com.jang.xunwu.security.AuthProvider;
+import com.jang.xunwu.security.LoginAuthFailHandler;
+import com.jang.xunwu.security.LoginUrlEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +46,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 // 配置角色登录处理入口
                 .loginProcessingUrl("/login")
-                .and();
+                .failureHandler(authFailHandler())
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logout/page")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(urlEntryPoint())
+                .accessDeniedPage("/403");
 
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
@@ -55,7 +69,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("root").password("123456")
-                .roles("ADMIN").and();
+        auth.authenticationProvider(authProvider()).eraseCredentials(true);
+    }
+
+    @Bean
+    public AuthProvider authProvider() {
+        return new AuthProvider();
+    }
+
+    @Bean
+    public LoginUrlEntryPoint urlEntryPoint() {
+        return new LoginUrlEntryPoint("/user/login");
+    }
+
+    @Bean
+    public LoginAuthFailHandler authFailHandler() {
+        return new LoginAuthFailHandler(urlEntryPoint());
     }
 }

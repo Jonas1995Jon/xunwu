@@ -1,9 +1,13 @@
 package com.jang.xunwu.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * title User
@@ -16,7 +20,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 
     /**
      * 用户唯一ID
@@ -74,4 +78,36 @@ public class User {
      */
     private String avatar;
 
+    @Transient
+    private List<GrantedAuthority> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -23,11 +23,8 @@ public class UserRepositoryTest extends XunWuApplicationTests {
 
     @Test
     public void findById() {
-        Optional<User> userOptional = userRepository.findById(1L);
-        boolean present = userOptional.isPresent();
-        if (present) {
-            Assert.assertEquals("waliwali",userOptional.get().getName() );
-        }
+        User user = userRepository.findOne(1L);
+        Assert.assertEquals("waliwali", user.getName());
     }
 
 }
