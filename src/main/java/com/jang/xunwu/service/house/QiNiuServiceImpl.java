@@ -43,9 +43,8 @@ public class QiNiuServiceImpl implements IQiNiuService, InitializingBean {
     public Response uploadFile(File file) throws QiniuException {
         Response response = this.uploadManager.put(file, null, getUploadToken());
         int retry = 0;
-        while (response.needRetry() && retry < 3) {
+        while (response.needRetry() && retry++ < 3) {
             response = this.uploadManager.put(file, null, getUploadToken());
-            retry++;
         }
         return response;
     }
@@ -77,7 +76,7 @@ public class QiNiuServiceImpl implements IQiNiuService, InitializingBean {
     }
 
     /**
-     * 过去上传凭证
+     * 获取上传凭证
      *
      * @return String
      */

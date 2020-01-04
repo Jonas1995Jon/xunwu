@@ -75,6 +75,11 @@ public class ApiResponse {
         BAD_REQUEST(400, "Bad Request"),
 
         /**
+         * 未找到
+         */
+        NOT_FOUND(404, "NOT FOUND"),
+
+        /**
          * 内部服务器错误
          */
         INTERNAL_SERVER_ERROR(500, "Unknown Internal Error"),
