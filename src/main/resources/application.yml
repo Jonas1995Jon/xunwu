@@ -20,6 +20,19 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
+  # redis config
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    pool:
+      min-idle: 1
+    timeout: 3000
+
+  # session会话存储类型
+  session:
+    store-type: redis
+
 # 不要springboot生成whitelabel页面
 server:
   error:
@@ -39,4 +52,4 @@ qiniu:
   SecretKey: qx52pYjI3vbYmZTxh-a1AQdswnc8Q8cZrThBZYkB
   Bucket: jang1995
   cdn:
-    prefix: http://q3f7ttmqr.bkt.clouddn.com
+    prefix: http://q3f7ttmqr.bkt.clouddn.com/
