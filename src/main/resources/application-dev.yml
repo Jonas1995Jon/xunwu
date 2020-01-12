@@ -17,3 +17,8 @@ spring:
       location: E:\Project\Java\xunwu\temp
       file-size-threshold: 5MB
       max-request-size: 20MB
+
+  # ES
+  data:
+    elasticsearch:
+      cluster-name: xunwu

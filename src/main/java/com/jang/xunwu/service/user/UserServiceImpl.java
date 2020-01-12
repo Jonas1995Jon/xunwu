@@ -69,7 +69,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User addUserByPhone(String telehone) {
+    public User addUserByPhone(String telephone) {
         return null;
     }
 
