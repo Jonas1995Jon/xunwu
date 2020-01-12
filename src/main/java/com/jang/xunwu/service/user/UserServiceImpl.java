@@ -5,6 +5,9 @@ import com.jang.xunwu.entity.User;
 import com.jang.xunwu.repository.RoleRepository;
 import com.jang.xunwu.repository.UserRepository;
 import com.jang.xunwu.service.IUserService;
+import com.jang.xunwu.service.ServiceResult;
+import com.jang.xunwu.web.dto.UserDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +34,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public User findUserByName(String userName) {
         User user = userRepository.findByName(userName);
@@ -45,5 +51,30 @@ public class UserServiceImpl implements IUserService {
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
         user.setAuthorities(authorities);
         return user;
+    }
+
+    @Override
+    public ServiceResult<UserDTO> findById(Long userId) {
+        User user = userRepository.findOne(userId);
+        if (user == null) {
+            return ServiceResult.notFound();
+        }
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return ServiceResult.of(userDTO);
+    }
+
+    @Override
+    public User findUserByTelephone(String telephone) {
+        return null;
+    }
+
+    @Override
+    public User addUserByPhone(String telehone) {
+        return null;
+    }
+
+    @Override
+    public ServiceResult modifyUserProfile(String profile, String value) {
+        return null;
     }
 }

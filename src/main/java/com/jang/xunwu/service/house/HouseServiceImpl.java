@@ -9,6 +9,7 @@ import com.jang.xunwu.entity.*;
 import com.jang.xunwu.repository.*;
 import com.jang.xunwu.service.ServiceMultiResult;
 import com.jang.xunwu.service.ServiceResult;
+import com.jang.xunwu.service.search.ISearchService;
 import com.jang.xunwu.web.dto.HouseDTO;
 import com.jang.xunwu.web.dto.HouseDetailDTO;
 import com.jang.xunwu.web.dto.HousePictureDTO;
@@ -68,6 +69,9 @@ public class HouseServiceImpl implements IHouseService {
 
     @Autowired
     private IQiNiuService qiNiuService;
+
+    @Autowired
+    private ISearchService iSearchService;
 
     /*@Autowired
     private ISearchService searchService;*/
@@ -351,14 +355,14 @@ public class HouseServiceImpl implements IHouseService {
 
     @Override
     public ServiceMultiResult<HouseDTO> query(RentSearch rentSearch) {
-        /*if (rentSearch.getKeywords() != null && !rentSearch.getKeywords().isEmpty()) {
-            ServiceMultiResult<Long> serviceResult = searchService.query(rentSearch);
+        if (rentSearch.getKeywords() != null && !rentSearch.getKeywords().isEmpty()) {
+            ServiceMultiResult<Long> serviceResult = iSearchService.query(rentSearch);
             if (serviceResult.getTotal() == 0) {
                 return new ServiceMultiResult<>(0L, new ArrayList<>());
             }
 
             return new ServiceMultiResult<>(serviceResult.getTotal(), wrapperHouseResult(serviceResult.getResult()));
-        }*/
+        }
 
         return simpleQuery(rentSearch);
 
